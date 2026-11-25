@@ -1,0 +1,171 @@
+ #section B : python programming
+ #  #question 11:
+# class Student:
+#     # Constructor
+#     def __init__(self, name, marks):
+#         self.__name = name
+#         self.__marks = marks
+
+#     # Getter method
+#     def get_name(self):
+#         return self.__name
+
+#     def get_marks(self):
+#         return self.__marks
+
+#     # Setter method
+#     def set_name(self, name):
+#         self.__name = name
+
+#     def set_marks(self, marks):
+#         self.__marks = marks
+
+#     # Display method
+#     def display(self):
+#         print("Student Name:", self.__name)
+#         print("Student Marks:", self.__marks)
+
+
+# # Create object
+# s1 = Student("Ajit", 85)
+
+# # Display student details
+# s1.display()
+
+# # Update values using setter
+# s1.set_name("Rahul")
+# s1.set_marks(90)
+
+# print("\nAfter Updating:")
+# s1.display()
+
+#Question 12:
+
+# try:
+#     # Open file
+#     file = open("students.txt", "r")
+
+#     # Read file content
+#     content = file.read()
+
+#     # Count lines and words
+#     lines = content.splitlines()
+#     words = content.split()
+
+#     print("Total Lines:", len(lines))
+#     print("Total Words:", len(words))
+
+#     file.close()
+
+# except FileNotFoundError:
+#     print("Error: students.txt file not found!")
+
+# except Exception as e:
+#     print("An error occurred:", e)
+
+
+#Section C Sql
+#Question 13:
+# SELECT
+#     s.name AS Student_Name,
+#     s.city AS City,
+#     c.course_name AS Course_Name,
+#     r.subject AS Subject,
+#     r.marks AS Marks
+# FROM Student s
+# LEFT JOIN Course c
+#     ON s.course_id = c.course_id
+# LEFT JOIN Result r
+#     ON s.student_id = r.student_id;
+
+#Question 14:
+# SELECT
+#     c.course_name,
+#     COUNT(s.student_id) AS total_students,
+#     AVG(r.marks) AS average_marks
+# FROM Course c
+# JOIN Student s
+#     ON c.course_id = s.course_id
+# JOIN Result r
+#     ON s.student_id = r.student_id
+# GROUP BY c.course_name
+# HAVING AVG(r.marks) > 70;
+
+#Question 15:
+# WITH StudentAverage AS
+# (
+#     SELECT
+#         s.student_id,
+#         s.name AS student_name,
+#         s.course_id,
+#         AVG(r.marks) AS average_marks
+#     FROM Student s
+#     JOIN Result r
+#         ON s.student_id = r.student_id
+#     GROUP BY
+#         s.student_id,
+#         s.name,
+#         s.course_id
+# )
+# SELECT
+#     student_name,
+#     average_marks,
+#     RANK() OVER (
+#         PARTITION BY course_id
+#         ORDER BY average_marks DESC
+#     ) AS student_rank
+# FROM StudentAverage;
+
+#section D:
+#Question 16
+# def check_pattern(seq):
+#     if len(seq) < 2:
+#         return True
+
+#     diff = seq[1] - seq[0]
+
+#     for i in range(1, len(seq) - 1):
+#         if seq[i + 1] - seq[i] != diff:
+#             return False
+
+#     return True
+
+
+# # Given sequence
+# numbers = [2, 4, 6, 8, 10, 12]
+
+# print(check_pattern(numbers))
+
+#Question 20:
+# def max_sum(arr, k):
+#     n = len(arr)
+
+#     # Calculate first window sum
+#     window_sum = sum(arr[:k])
+#     max_sum = window_sum
+
+#     # Sliding window
+#     for i in range(k, n):
+#         window_sum = window_sum + arr[i] - arr[i-k]
+
+#         max_sum = max(max_sum, window_sum)
+
+#     return max_sum
+
+
+# arr = [3, 1, 4, 2, 5, 1, 6]
+# k = 3
+# print("Maximum Window Sum:", max_sum(arr, k))
+
+#time complexity: O(n)
+#Space complexity: O(1)
+
+#Question 18:
+# def pair_sum(arr, target):
+#     seen = set()
+#     for x in arr:
+#         if target - x in seen:
+#             return (target - x, x)
+#         seen.add(x)
+#     return None
+
